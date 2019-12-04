@@ -7,6 +7,7 @@ const router = express.Router();
 // router.get('/', (req, res) => {
 //     res.send('Merhaba..');
 // });
+
 router.get('/', async (req, res) => {
     // dondurulen koleksiyonlari iletiler degiskenine yukle
     const iletiler = await loadIletilerCollection();
@@ -17,8 +18,22 @@ router.get('/', async (req, res) => {
 })
 
 // ileti ekle
+router.post('/', async (req, res) => {
+    const iletiler = await loadIletilerCollection();
+    await iletiler.insertOne({
+        ileti: req.body.ileti,
+        olusturulmaTarihi: new Date()
+    });
+    res.status(201).send();
+})
+
 
 // ileti sil
+router.delete('/:id', async (req, res) => {
+    const iletiler = await loadIletilerCollection();
+    await iletiler.deleteOne({_id: new mongodb.ObjectID(req.params.id)});
+    res.status(200).send();
+})
 
 async function loadIletilerCollection(){
     const client = await mongodb.MongoClient.connect
