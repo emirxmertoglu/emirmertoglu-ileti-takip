@@ -35,6 +35,16 @@ router.delete('/:id', async (req, res) => {
     res.status(200).send();
 })
 
+// ileti guncelle
+router.put('/:id', async (req, res) => {
+    const iletiler = await loadIletilerCollection();
+    await iletiler.updateOne(
+        {_id: new mongodb.ObjectID(req.params.id)},
+        {$set: {ileti: req.body.ileti, olusturulmaTarihi: new Date()}}
+    );
+    res.status(200).send();
+})
+
 async function loadIletilerCollection(){
     const client = await mongodb.MongoClient.connect
     (
