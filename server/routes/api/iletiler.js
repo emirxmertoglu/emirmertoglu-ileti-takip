@@ -1,6 +1,20 @@
 const express = require('express');
 const mongodb = require('mongodb');
+
 const dateFormat = require('dateformat');
+dateFormat.i18n = {
+    dayNames: [
+        'Pzr', 'Pts', 'Sal', 'Çrş', 'Prş', 'Cum', 'Cts',
+        'Pazar', 'Pazartesi', 'Salı', 'Çarşamba', 'Perşembe', 'Cuma', 'Cumartesi'
+    ],
+    monthNames: [
+        'Oca', 'Şub', 'Mar', 'Nis', 'May', 'Haz', 'Tem', 'Ağu', 'Eyl', 'Eki', 'Kas', 'Ara',
+        'Ocak', 'Şubat', 'Mart', 'Nisan', 'Mayıs', 'Haziran', 'Temmuz', 'Ağustos', 'Eylül', 'Ekim', 'Kasım', 'Aralık'
+    ],
+    timeNames: [
+        'a', 'p', 'am', 'pm', 'A', 'P', 'AM', 'PM'
+    ]
+};
 
 const router = express.Router();
 
